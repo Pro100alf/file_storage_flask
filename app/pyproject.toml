@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "file_storage"
+version = "0.1.0"
+description = "Test file storage"
+authors = ["Dmitry Bogdanov"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.3.2"
+Flask-SQLAlchemy = "^3.0.5"
+flask-restx = "^1.1.0"
+python-dotenv = "0.20.0"
+gunicorn = "21.0.1"
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,55 @@
+version: "2.4"
+services:
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "${MINIO_SERVER_PORT}:${MINIO_SERVER_PORT}"
+      - "${MINIO_CONSOLE_PORT}:${MINIO_CONSOLE_PORT}"
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: server --address 0.0.0.0:${MINIO_SERVER_PORT} --console-address :${MINIO_CONSOLE_PORT} /data
+    volumes:
+      - minio-data:/data
+    networks:
+      default-network:
+
+  db:
+    image: postgres:14.2
+    ports:
+      - "5959:5432"
+    env_file:
+      - .env
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      default-network:
+
+  backend:
+    container_name: backend
+    restart: always
+    build:
+      context: app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - 80:5000
+    networks:
+      default-network:
+
+volumes:
+  pg-data:
+    driver: local
+  minio-data:
+    driver: local
+networks:
+  default-network:
+    driver: bridge
