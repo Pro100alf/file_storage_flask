@@ -20,3 +20,4 @@ file_storage_api = Api(swagger_ui_blueprint,
                authorizations=authorizations
                )
 file_storage_api_ns = file_storage_api.namespace('/', description='REST API file storage')
+user_api_ns = file_storage_api.namespace('user', description='REST API user')

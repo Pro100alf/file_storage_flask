@@ -12,6 +12,11 @@ Flask-SQLAlchemy = "^3.0.5"
 flask-restx = "^1.1.0"
 python-dotenv = "0.20.0"
 gunicorn = "21.0.1"
+Flask-Migrate = "4.0.4"
+psycopg2-binary = "2.9.7"
+SQLAlchemy = "2.0.19"
+bcrypt = "^4.0.1"
+minio = "7.1.8"
 
 
 [build-system]

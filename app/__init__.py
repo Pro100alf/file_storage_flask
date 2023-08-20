@@ -18,13 +18,13 @@ def create_app(config_class=Config):
 
     if app.debug:
         app.config['PROPAGATE_EXCEPTIONS'] = False
-        
-
+    
+    from app.models import db, migrate
+    db.init_app(app)    
+    migrate.init_app(app)
+    
     from app.main import main_bp
     app.register_blueprint(main_bp)
-
-    # from app.errors import bp as errors_bp
-    # app.register_blueprint(errors_bp)
 
     from app.swagger import swagger_ui_blueprint
     app.register_blueprint(swagger_ui_blueprint)
